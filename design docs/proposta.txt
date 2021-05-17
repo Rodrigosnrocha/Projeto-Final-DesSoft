@@ -1,0 +1,9 @@
+Projeto Final - Design de Software
+
+Grupo:
+Lucca Lima
+Rafael Paolino
+Rodrigo Rocha
+
+
+Jogo side-scroller de tiro. Jogador controla um avião e tem um sistema de upgrades para melhorar suas abilidades.
