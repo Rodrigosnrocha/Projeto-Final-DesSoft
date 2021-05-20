@@ -1,0 +1,1 @@
+# Ainda não adicionada. Melhor esperar até o gameplay estar mais desenvolvido
