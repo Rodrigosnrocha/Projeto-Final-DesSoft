@@ -3,6 +3,7 @@
 import pygame
 from file_config import SCR_HEIGHT, SCR_WIDTH, FPS, QUIT, INGAME, TITLE, GAME_OVER, create_window
 from assets import load_assets, IMG_TEST
+from game import game_screen
 
 pygame.init()
 pygame.mixer.init()
@@ -20,5 +21,7 @@ while state != QUIT:
             state = QUIT
         elif event.type == pygame.KEYDOWN:
             state = INGAME
+    if state == INGAME:
+        game_screen(window)
 
 pygame.quit()
