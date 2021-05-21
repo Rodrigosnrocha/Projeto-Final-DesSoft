@@ -8,6 +8,7 @@ IMG_TEST = 'IMG_TEST'
 IMG_PLAYER_TEST = 'IMG_PLAYER_TEST'
 BG_TEST = 'BG_TEST'
 IMG_BULLET_TEST = 'IMG_BULLET_TEST'
+IMG_ENEMY_TEST = 'IMG_ENEMY_TEST'
 
 # Glossário dos assets BG = background; IMG = imagens/sprites, SND = musica/sons; TXT = texto/fonts
 
@@ -24,4 +25,5 @@ def load_assets():
     assets[IMG_PLAYER_TEST] = pygame.image.load(path.join(IMG,'img_playerTest.png')).convert_alpha()
     assets[BG_TEST] = pygame.image.load(path.join(IMG,'bg_test.png')).convert()
     assets[IMG_BULLET_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
+    assets[IMG_ENEMY_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     return assets

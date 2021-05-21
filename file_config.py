@@ -17,8 +17,8 @@ SND = path.join(path.dirname(__file__), 'assets', 'snd')
 TXT = path.join(path.dirname(__file__), 'assets', 'txt')
 
 # Configurações de display do jogo. Não recomendável mudar após escolhido
-SCR_WIDTH = 640 #Determina a largura da janela
-SCR_HEIGHT = 480 #Determina a altura da janela
+SCR_WIDTH = 1280 #Determina a largura da janela
+SCR_HEIGHT = 720 #Determina a altura da janela
 FPS = 60 #Determina a frequência de frames por segundo
 
 # Estados para o launcher.py controlar o jogo
