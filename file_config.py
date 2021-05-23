@@ -21,6 +21,14 @@ SCR_WIDTH = 1280 #Determina a largura da janela
 SCR_HEIGHT = 720 #Determina a altura da janela
 FPS = 60 #Determina a frequência de frames por segundo
 
+# Configurações de certas de objetos no jogo
+ENEMY_CONFIG = {}
+ENEMY_CONFIG['HEIGHT'] = 20
+ENEMY_CONFIG['WIDTH'] = 20
+ENEMY_CONFIG['SPEED'] = 15
+
+
+
 # Estados para o launcher.py controlar o jogo
 QUIT = 0
 INGAME = 1

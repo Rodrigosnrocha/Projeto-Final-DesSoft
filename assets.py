@@ -22,8 +22,8 @@ def load_assets():
     # Coloque todos os assets nesse dicionário para facilitar seu uso depois
     assets = {}
     assets[IMG_TEST] = pygame.image.load(path.join(IMG,'img_test.png')).convert()
-    assets[IMG_PLAYER_TEST] = pygame.image.load(path.join(IMG,'img_playerTest.png')).convert_alpha()
     assets[BG_TEST] = pygame.image.load(path.join(IMG,'bg_test.png')).convert()
+    assets[IMG_PLAYER_TEST] = pygame.image.load(path.join(IMG,'img_playerTest.png')).convert_alpha()
     assets[IMG_BULLET_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     assets[IMG_ENEMY_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     return assets

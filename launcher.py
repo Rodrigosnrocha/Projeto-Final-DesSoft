@@ -14,14 +14,15 @@ assets = load_assets()
 window.blit(assets[IMG_TEST],(0,0))
 pygame.display.update()
 
-state = TITLE
-while state != QUIT:
+global_state = TITLE
+while global_state != QUIT:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            state = QUIT
+            global_state = QUIT
         elif event.type == pygame.KEYDOWN:
-            state = INGAME
-    if state == INGAME:
+            global_state = INGAME
+    if global_state == INGAME:
         game_screen(window)
+        global_state = QUIT
 
 pygame.quit()

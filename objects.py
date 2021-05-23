@@ -2,37 +2,16 @@
 Nesse arquivo definimos todas as classes usadas no resto do programa
 """
 
-from Pystuff.Jogobackup import HEIGHT
 import pygame
 import random
-from file_config import SCR_HEIGHT, SCR_WIDTH
-from assets import IMG_BULLET_TEST, IMG_PLAYER_TEST, BG_TEST
-
-''' o que ja tava aqui \/
-class Player(pygame.sprite.Sprite):
-    def __init__(self,groups,assets):
-        pygame.sprite.Sprite.__init__(self)
-        self.groups = groups
-        self.assets = assets
-
-        self.image = assets[IMG_PLAYER_TEST]
-        self.mask = pygame.mask.from_surface(self.image)
-
-        self.speedx = 0
-        self.speedy = 0
-
-        self.rect = self.image.get_rect()
-        self.rect.centery = SCR_HEIGHT / 2
-        self.rect.left = 10
-'''
+from file_config import SCR_HEIGHT, SCR_WIDTH, ENEMY_CONFIG
+from assets import IMG_BULLET_TEST, IMG_ENEMY_TEST, IMG_PLAYER_TEST, BG_TEST
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
-        # Construtor da classe mãe (Sprite).
-
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = assets[[IMG_PLAYER_TEST]
+        self.image = assets[IMG_PLAYER_TEST]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.left = 90
@@ -41,17 +20,17 @@ class Player(pygame.sprite.Sprite):
         self.groups = groups
         self.assets = assets
 
-        # Só será possível atirar depois do cooldown (depende da arma)
+        # Só será possível atirar depois do cooldown
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 1000
 
     def update(self):
-        # Atualização da posição do boomerang
+        
         self.rect.y += self.speedy
 
         # Mantem dentro da tela
-        if self.rect.top > HEIGHT:
-            self.rect.top = HEIGHT
+        if self.rect.top > SCR_HEIGHT:
+            self.rect.top = SCR_HEIGHT
             self.speedy = 0
         if self.rect.bottom < 0:
             self.rect.bottom = 0
@@ -67,31 +46,46 @@ class Player(pygame.sprite.Sprite):
         if elapsed_ticks > self.shoot_ticks:
             # Marca o tick da nova imagem.
             self.last_shot = now
-            # A nova bala vai ser criada logo acima e no centro horizontal da nave
+            # A nova bala vai ser criada logo acima e no centro horizontal do aviao
             new_bullet = Bullet(self.assets, self.rect.right, self.rect.centery)
-            self.groups['all_sprites'].add(new_bullet)
-            self.groups['all_bullets'].add(new_bullet)
-            self.assets['shoot_sound'].play()
+            self.groups['sprites'].add(new_bullet)
+            self.groups['player_bullets'].add(new_bullet)
+            #self.assets['shoot_sound'].play()
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, assets):
+    def __init__(self, assets, config):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-
-        self.image = assets['enemy_img']
+        
+        self.config = config # Usa as variáveis definidas em file_config para criar as dimensões e velocidade do inimigo
+        self.image = assets[IMG_ENEMY_TEST]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
-        self.rect.x = WIDTH + ENEMY_WIDTH   
-        self.rect.y = random.randint(ENEMY_HEIGHT+10, HEIGHT-ENEMY_HEIGHT)
-        self.speedx = ENEMY_SPEED
+        self.width = self.config['WIDTH']
+        self.height = self.config['HEIGHT']
+        self.base_speed = self.config['SPEED']
+        self.get_coords()
+        
 
     def update(self):
         # Atualizando a posição do inimigo
         self.rect.x += self.speedx
 
-        # Se o inimigo passar do final da tela, volta para cima e
-        # sorteia novas posições
         if self.rect.right < 0:
-            self.rect.x = WIDTH + ENEMY_WIDTH   
-            self.rect.y = random.randint(ENEMY_HEIGHT+10, HEIGHT-ENEMY_HEIGHT)
-            self.speedx = ENEMY_SPEED
+            self.get_coords()
+
+    def get_coords(self):
+            self.rect.x = SCR_WIDTH + self.width   
+            self.rect.y = random.randint(self.height+10, SCR_HEIGHT-self.height)
+            self.speedx = self.base_speed
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets[IMG_BULLET_TEST]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.speedx = 30
+
+    def update(self):
+        self.rect.x += self.speedx
