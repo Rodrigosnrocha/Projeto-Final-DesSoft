@@ -81,14 +81,15 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x = SCR_WIDTH + self.width   
             self.rect.y = random.randint(self.height+10, SCR_HEIGHT-self.height)
             self.speedx = self.base_speed
-
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, assets):
+    def __init__(self, assets, left, centery):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets[IMG_BULLET_TEST]
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.speedx = 30
+        self.rect.left = left
+        self.rect.centery = centery
 
     def update(self):
         self.rect.x += self.speedx
