@@ -29,4 +29,7 @@
 ### 0.1.0
 #### Versão inicial. Criado framework para o resto do jogo
 
+### 0.2.0
+#### Movimento adicionado, progresso em geral
+
 
