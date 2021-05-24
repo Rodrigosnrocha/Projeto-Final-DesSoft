@@ -2,8 +2,8 @@ from pygame.constants import KEYUP
 from assets import BG_TEST, load_assets
 import pygame
 import random
-from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT
-from objects import Player
+from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
+from objects import Enemy, Player
 
 def game_screen(window):
     game_clock = pygame.time.Clock()
@@ -12,11 +12,16 @@ def game_screen(window):
     sprite_groups = {}
     sprites = pygame.sprite.Group()
     sprite_groups['sprites'] = sprites
-    enemy_bullets = pygame.sprite.Group()
-    sprite_groups['player_bullets'] = enemy_bullets
+    enemies = pygame.sprite.Group()
+    sprite_groups['enemies'] = enemies
 
     player = Player(sprite_groups, assets)
     sprites.add(player)
+
+    for i in range(4):
+        e = Enemy(assets,ENEMY_CONFIG)
+        enemies.add(e)
+        sprites.add(e)
 
     window.fill((0,0,0))
     #window.blit
