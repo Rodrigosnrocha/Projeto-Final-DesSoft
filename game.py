@@ -12,6 +12,8 @@ def game_screen(window):
     sprite_groups = {}
     sprites = pygame.sprite.Group()
     sprite_groups['sprites'] = sprites
+    player_bullets = pygame.sprite.Group()
+    sprite_groups['player_bullets'] = player_bullets
     enemies = pygame.sprite.Group()
     sprite_groups['enemies'] = enemies
 
