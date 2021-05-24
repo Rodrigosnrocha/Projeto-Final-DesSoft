@@ -1,3 +1,4 @@
+from pygame.constants import KEYUP
 from assets import BG_TEST, load_assets
 import pygame
 import random
@@ -28,18 +29,26 @@ def game_screen(window):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 state = 'QUIT'
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    player.speedy = -12
+                    player.speedy += -12
                 if event.key == pygame.K_DOWN:
-                    player.speedy = 12
+                    player.speedy += 12
+                if event.key == pygame.K_RIGHT:
+                    player.speedx += 12
+                if event.key == pygame.K_LEFT:
+                    player.speedx += -12
                 if event.key == pygame.K_SPACE:
                     player.shoot()
-            """elif event.type == pygame.KEYUP:
+            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
                     player.speedy += 12
+                if event.key == pygame.K_RIGHT:
+                    player.speedx += -12
+                if event.key == pygame.K_LEFT:
+                    player.speedx += 12
                 if event.key == pygame.K_DOWN:
-                    player.speedy -= 12"""
+                    player.speedy += -12
         sprites.update()
         window.fill((0,0,0))
         sprites.draw(window)

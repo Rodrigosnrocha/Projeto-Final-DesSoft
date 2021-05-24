@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.left = 90
         self.rect.centery = SCR_HEIGHT/2
         self.speedy = 0
+        self.speedx = 0   
         self.groups = groups
         self.assets = assets
 
@@ -27,15 +28,17 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         
         self.rect.y += self.speedy
+        self.rect.x += self.speedx
 
         # Mantem dentro da tela
-        if self.rect.top > SCR_HEIGHT:
-            self.rect.top = SCR_HEIGHT
-            self.speedy = 0
-        if self.rect.bottom < 0:
-            self.rect.bottom = 0
-            self.speedy = 0
-
+        if self.rect.top < 1:
+            self.rect.top = 1
+        if self.rect.bottom > SCR_HEIGHT:
+            self.rect.bottom = SCR_HEIGHT
+        if self.rect.left < 10:
+            self.rect.left = 10
+        if self.rect.right > SCR_WIDTH-10:
+            self.rect.right = SCR_WIDTH-10
     def shoot(self):
         # Verifica se pode atirar
         now = pygame.time.get_ticks()
