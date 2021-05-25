@@ -18,12 +18,14 @@ class Player(pygame.sprite.Sprite):
         self.rect.centery = SCR_HEIGHT/2
         self.speedy = 0
         self.speedx = 0   
-        self.groups = groups
+        self.groups = groups # Salvamos todos os grupos e assets no avião para criar os tiros
         self.assets = assets
+        self.anim_state = 0 # Vamos usar 0 para representar o estado 'idle'
+        self.blink = False # Esse boolean determina se o avião deve piscar
 
         # Só será possível atirar depois do cooldown
-        self.last_shot = pygame.time.get_ticks()
-        self.shoot_ticks = 1000
+        self.shoot_ticks = 600
+        self.last_shot = pygame.time.get_ticks() - self.shoot_ticks
 
     def update(self):
         
@@ -63,6 +65,7 @@ class Enemy(pygame.sprite.Sprite):
         self.config = config # Usa as variáveis definidas em file_config para criar as dimensões e velocidade do inimigo
         self.image = assets[IMG_ENEMY_TEST]
         self.mask = pygame.mask.from_surface(self.image)
+
         self.rect = self.image.get_rect()
         self.width = self.config['WIDTH']
         self.height = self.config['HEIGHT']
@@ -72,7 +75,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         # Atualizando a posição do inimigo
-        self.rect.x += self.speedx
+        self.rect.x -= self.speedx
 
         if self.rect.right < 0:
             self.get_coords()
@@ -81,6 +84,10 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x = SCR_WIDTH + self.width   
             self.rect.y = random.randint(self.height+10, SCR_HEIGHT-self.height)
             self.speedx = self.base_speed
+    
+    def destroy(self):
+        # Destruimos o inimigo com um método caso quisermos adicionar mais funcionalidade depois
+        self.kill()
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, assets, left, centery):
