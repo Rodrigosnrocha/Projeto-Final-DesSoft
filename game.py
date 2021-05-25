@@ -1,5 +1,5 @@
 from pygame.constants import KEYUP
-from assets import BG_TEST, load_assets
+from assets import BG_TEST, FONT, load_assets
 import pygame
 import random
 from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
@@ -30,6 +30,8 @@ def game_screen(window):
         enemies.add(e)
         sprites.add(e)
         enemy_count += 1
+
+    score = 0
 
     window.fill((0,0,0))
     sprites.draw(window)
@@ -71,7 +73,11 @@ def game_screen(window):
         for i in bullet_hits:
             i.destroy()
             enemy_count -= 1
+            score += 500
         
+        if player.blink == False:
+            player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
+
         if ((now - last_spawn) % enemy_timer) == 0:
             e = Enemy(assets,ENEMY_CONFIG)
             enemies.add(e)
@@ -79,8 +85,20 @@ def game_screen(window):
             enemy_count += 1
             #enemy_timer += 1000
             last_spawn = now
-        
+
         sprites.update()
         window.fill((0,0,0))
+
+        score += 0.02
+        score_num = assets[FONT].render(f"{score:.0f}", True, (255,255,255))
+        score_rect = score_num.get_rect()
+        score_rect.topright = (SCR_WIDTH-20,40)
+        window.blit(score_num,score_rect)
+
+        score_title = assets[FONT].render("SCORE", True, (255,255,255))
+        title_rect = score_title.get_rect()
+        title_rect.topright = (SCR_WIDTH-20,20)
+        window.blit(score_title,title_rect)
+
         sprites.draw(window)
         pygame.display.update()

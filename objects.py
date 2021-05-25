@@ -81,9 +81,9 @@ class Enemy(pygame.sprite.Sprite):
             self.get_coords()
 
     def get_coords(self):
-            self.rect.x = SCR_WIDTH + self.width   
-            self.rect.y = random.randint(self.height+10, SCR_HEIGHT-self.height)
-            self.speedx = self.base_speed
+        self.rect.x = SCR_WIDTH + self.width   
+        self.rect.y = random.randint(self.height, SCR_HEIGHT-self.height)
+        self.speedx = self.base_speed
     
     def destroy(self):
         # Destruimos o inimigo com um método caso quisermos adicionar mais funcionalidade depois
