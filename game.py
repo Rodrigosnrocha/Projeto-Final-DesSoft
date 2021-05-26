@@ -81,6 +81,10 @@ def game_screen(window):
             enemy_count -= 1
             coins += 1
         
+        hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
+        if len(hits) > 0:
+            lives -= 1
+        
         if player.blink == False:
             player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
 
@@ -138,7 +142,8 @@ def game_screen(window):
         text_rect.topleft = (215, 18)
         window.blit(text_surface, text_rect)
 
-
+        if lives <= 0:
+            state = "DEAD"
 
         sprites.draw(window)
         pygame.display.update()
