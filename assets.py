@@ -35,4 +35,10 @@ def load_assets():
         img = pygame.transform.scale(img, (32, 32))
         coin_anim.append(img)
     assets["coin_anim"] = coin_anim
+    heart_anim = []
+    for i in range(4):
+        filename = 'HeartT{}.png'.format(i)
+        img = pygame.image.load(path.join(IMG,filename)).convert_alpha()
+        heart_anim.append(img)
+    assets["heart_anim"] = heart_anim
     return assets
