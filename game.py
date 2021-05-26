@@ -34,6 +34,8 @@ def game_screen(window):
         enemy_count += 1
 
     score = 0
+    coins = 0
+    coinframe = 0
 
     window.fill((0,0,0))
     sprites.draw(window)
@@ -75,7 +77,7 @@ def game_screen(window):
         for i in bullet_hits:
             i.destroy()
             enemy_count -= 1
-            score += 500
+            coins += 1
         
         if player.blink == False:
             player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
@@ -91,11 +93,25 @@ def game_screen(window):
         sprites.update()
         window.fill((0,0,0))
 
-        score += 0.02
+        score += 0.2
         score_num = assets[FONT].render(f"{score:.0f}", True, (255,255,255))
         score_rect = score_num.get_rect()
         score_rect.topright = (SCR_WIDTH-20,40)
         window.blit(score_num,score_rect)
+
+        coinframe += 1
+        canimframe = coinframe//10
+        ccoin = assets['coin_anim'][canimframe]
+        coin_rect = ccoin.get_rect()
+        coin_rect.topleft = (10, 10)
+        window.blit(assets['coin_anim'][canimframe], (10, 10))
+        if coinframe >= 58:
+            coinframe = 0
+
+        coin_title = assets[FONT].render('X {}'.format(str(coins)), True, (255,255,255))
+        title_rect = coin_title.get_rect()
+        title_rect.topleft = (55, 18)
+        window.blit(coin_title,title_rect)
 
         score_title = assets[FONT].render("SCORE", True, (255,255,255))
         title_rect = score_title.get_rect()

@@ -28,4 +28,11 @@ def load_assets():
     assets[IMG_BULLET_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     assets[IMG_ENEMY_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     assets[FONT] = pygame.font.Font(None,28)
+    coin_anim = []
+    for i in range(6):
+        filename = 'Coin{}.png'.format(i+1)
+        img = pygame.image.load(path.join(IMG,filename)).convert_alpha()
+        img = pygame.transform.scale(img, (32, 32))
+        coin_anim.append(img)
+    assets["coin_anim"] = coin_anim
     return assets
