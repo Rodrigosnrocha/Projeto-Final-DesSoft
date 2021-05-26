@@ -9,6 +9,7 @@ IMG_PLAYER_TEST = 'IMG_PLAYER_TEST'
 BG_TEST = 'BG_TEST'
 IMG_BULLET_TEST = 'IMG_BULLET_TEST'
 IMG_ENEMY_TEST = 'IMG_ENEMY_TEST'
+FONT = 'FONT'
 
 # Glossário dos assets BG = background; IMG = imagens/sprites, SND = musica/sons; TXT = texto/fonts
 
@@ -26,4 +27,5 @@ def load_assets():
     assets[IMG_PLAYER_TEST] = pygame.image.load(path.join(IMG,'img_playerTest.png')).convert_alpha()
     assets[IMG_BULLET_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
     assets[IMG_ENEMY_TEST] = pygame.image.load(path.join(IMG,'img_bulletTest.png')).convert_alpha()
+    assets[FONT] = pygame.font.Font(None,28)
     return assets

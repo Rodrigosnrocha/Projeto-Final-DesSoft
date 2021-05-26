@@ -25,7 +25,7 @@ FPS = 60 #Determina a frequência de frames por segundo
 ENEMY_CONFIG = {}
 ENEMY_CONFIG['HEIGHT'] = 20
 ENEMY_CONFIG['WIDTH'] = 20
-ENEMY_CONFIG['SPEED'] = 15
+ENEMY_CONFIG['SPEED'] = 5
 
 
 
