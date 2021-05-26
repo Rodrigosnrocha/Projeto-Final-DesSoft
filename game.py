@@ -24,7 +24,8 @@ def game_screen(window):
     firing = False
 
     enemy_count = 0
-    enemy_timer = 8000
+    base_timer = 8000
+    enemy_timer = base_timer
     last_spawn = pygame.time.get_ticks()
     for i in range(3):
         e = Enemy(assets,ENEMY_CONFIG)
@@ -88,11 +89,14 @@ def game_screen(window):
         if player.blink == False:
             player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
 
+        enemy_timer = base_timer - score
+
         if (now - last_spawn) > enemy_timer:
-            e = Enemy(assets,ENEMY_CONFIG)
-            enemies.add(e)
-            sprites.add(e)
-            enemy_count += 1
+            for i in range(3):
+                e = Enemy(assets,ENEMY_CONFIG)
+                enemies.add(e)
+                sprites.add(e)
+                enemy_count += 1
             last_spawn = now
 
         sprites.update()
