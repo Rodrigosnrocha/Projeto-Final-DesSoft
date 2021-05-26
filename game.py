@@ -5,6 +5,8 @@ import random
 from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
 from objects import Enemy, Player
 
+lives = 0
+
 def game_screen(window):
     game_clock = pygame.time.Clock()
     assets = load_assets()
