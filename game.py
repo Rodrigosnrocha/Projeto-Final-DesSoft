@@ -39,6 +39,7 @@ def game_screen(window):
     coinframe = 0
     heartframe = 0
     lives = 3
+    keys_pressed = {}
 
     window.fill((65, 65, 65))
     sprites.draw(window)
@@ -56,6 +57,7 @@ def game_screen(window):
                     pygame.quit()
                     Running = False
                 if event.type == pygame.KEYDOWN:
+                    keys_pressed[event.key] = True
                     if event.key == pygame.K_UP:
                         player.speedy += -player_speed
                     if event.key == pygame.K_DOWN:
@@ -67,16 +69,17 @@ def game_screen(window):
                     if event.key == pygame.K_SPACE:
                         firing = True
                 if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_UP:
-                        player.speedy += player_speed
-                    if event.key == pygame.K_RIGHT:
-                        player.speedx += -player_speed
-                    if event.key == pygame.K_LEFT:
-                        player.speedx += player_speed
-                    if event.key == pygame.K_DOWN:
-                        player.speedy += -player_speed
-                    if event.key == pygame.K_SPACE:
-                        firing = False
+                    if event.key in keys_pressed and keys_pressed[event.key]:
+                        if event.key == pygame.K_UP:
+                            player.speedy += player_speed
+                        if event.key == pygame.K_RIGHT:
+                            player.speedx += -player_speed
+                        if event.key == pygame.K_LEFT:
+                            player.speedx += player_speed
+                        if event.key == pygame.K_DOWN:
+                            player.speedy += -player_speed
+                        if event.key == pygame.K_SPACE:
+                            firing = False
             if firing == True:
                 player.shoot()
 
@@ -151,7 +154,10 @@ def game_screen(window):
             window.blit(text_surface, text_rect)
 
             if lives <= 0:
+                keys_pressed = {}
                 state = "DEAD"
+                player.speedx = 0
+                player.speedy = 0
 
             sprites.draw(window)
             pygame.display.update()
@@ -173,4 +179,8 @@ def game_screen(window):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         state = "GAME"
+                        player.rect.left = 90
+                        player.rect.centery = SCR_HEIGHT/2
+                        player.speedx = 0
+                        player.speedy = 0
                         lives = 3
