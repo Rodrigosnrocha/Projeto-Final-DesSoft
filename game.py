@@ -20,11 +20,11 @@ def game_screen(window):
 
     player = Player(sprite_groups, assets)
     sprites.add(player)
-    player_speed = 9
+    player_speed = 8
     firing = False
 
     enemy_count = 0
-    base_timer = 8000
+    base_timer = 6500
     enemy_timer = base_timer
     last_spawn = pygame.time.get_ticks()
     for i in range(3):
@@ -40,6 +40,10 @@ def game_screen(window):
     heartframe = 0
     lives = 3
     keys_pressed = {}
+    extralifei = 0
+    difficulty = 6
+    dif_purchases = 0
+    shoot_purchases = 0
 
     window.fill((65, 65, 65))
     sprites.draw(window)
@@ -96,7 +100,9 @@ def game_screen(window):
             if player.blink == False:
                 player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
 
-            enemy_timer = base_timer - score
+            enemy_timer = base_timer - score * difficulty
+            if enemy_timer < 100:
+                enemy_timer = 100
 
             if (now - last_spawn) > enemy_timer:
                 for i in range(3):
@@ -133,6 +139,17 @@ def game_screen(window):
             if lscore > 500:
                 lives += 1
                 lscore = 0
+                extralifei = 1
+
+            if extralifei > 0:
+                extralifei += 1
+                extralife_title = assets['FONT3'].render('vida extra!', True, (255,50,50))
+                title_rect = extralife_title.get_rect()
+                title_rect.center = (SCR_WIDTH/2, 60)
+                window.blit(extralife_title,title_rect)
+                if extralifei > 120:
+                    extralifei = 0
+
 
             heartframe += 1
             hanimframe = heartframe//10
@@ -158,6 +175,10 @@ def game_screen(window):
                 state = "DEAD"
                 player.speedx = 0
                 player.speedy = 0
+                lives = 0
+                enemy_count = 0
+                for i in enemies:
+                    i.destroy()
 
             sprites.draw(window)
             pygame.display.update()
@@ -165,10 +186,58 @@ def game_screen(window):
         while state == "DEAD":
             game_clock.tick(FPS)
             window.fill((33, 83, 144))
-            text_surface = assets[FONT].render('Aperte R para jogar', True, (255,255,255))
+
+            text_surface = assets['FONT4'].render('Loja', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 20)
+            window.blit(text_surface, text_rect)
+
+
+            coinframe += 1
+            canimframe = coinframe//10
+            ccoin = assets['coin_anim'][canimframe]
+            ccoin_rect = ccoin.get_rect()
+            ccoin_rect.midleft = (30, 115)
+            window.blit(assets['coin_anim'][canimframe], ccoin_rect)
+            if coinframe >= 58:
+                coinframe = 0
+            coin_title = assets['FONT2'].render('X {}'.format(str(coins)), True, (255,255,255))
+            title_rect = coin_title.get_rect()
+            title_rect.midleft = (70, 120)
+            window.blit(coin_title,title_rect)
+
+            text_surface = assets['FONT3'].render('Aperte R para jogar', True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.bottomright = (SCR_WIDTH-25, SCR_HEIGHT-15)
             window.blit(text_surface, text_rect)
+
+            text_surface = assets['FONT2'].render('1 - VIDA EXTRA [10 moedas]', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 220)
+            window.blit(text_surface, text_rect)
+            text_surface = assets[FONT].render('adiciona uma vida (vidas: {})'.format(lives+3), True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (40, 250)
+            window.blit(text_surface, text_rect)
+
+            text_surface = assets['FONT2'].render('2 - FREIO ABS [25 moedas]', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 300)
+            window.blit(text_surface, text_rect)
+            text_surface = assets[FONT].render('diminui a aceleracao dos inimigos (max duas compras)', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (40, 330)
+            window.blit(text_surface, text_rect)
+
+            text_surface = assets['FONT2'].render('3 - TREINAMENTO DE UZI [6 moedas]', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 380)
+            window.blit(text_surface, text_rect)
+            text_surface = assets[FONT].render('levemente diminui o tempo para atirar (max sete compras)', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (40, 410)
+            window.blit(text_surface, text_rect)
+
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -183,4 +252,21 @@ def game_screen(window):
                         player.rect.centery = SCR_HEIGHT/2
                         player.speedx = 0
                         player.speedy = 0
-                        lives = 3
+                        lives += 3
+                        score = 0
+                        lscore = 0
+                    if event.key == pygame.K_1:
+                        if coins >= 10:
+                            lives += 1
+                            coins -= 10
+                    if event.key == pygame.K_2:
+                         if coins >= 25 and dif_purchases < 2:
+                             difficulty -= 2
+                             dif_purchases += 1
+                             coins -= 25
+                    if event.key == pygame.K_3:
+                         if coins >= 6 and shoot_purchases < 7:
+                             player.shoot_ticks -=100
+                             shoot_purchases += 1
+                             coins -= 6
+

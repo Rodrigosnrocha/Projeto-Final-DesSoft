@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.blink = False # Esse boolean determina se o avião deve piscar
 
         # Só será possível atirar depois do cooldown
-        self.shoot_ticks = 600
+        self.shoot_ticks = 1000
         self.last_shot = pygame.time.get_ticks() - self.shoot_ticks
 
     def update(self):
