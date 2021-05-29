@@ -39,6 +39,7 @@ def game_screen(window):
     coinframe = 0
     heartframe = 0
     lives = 3
+    extralifei = 0
 
     window.fill((65, 65, 65))
     sprites.draw(window)
@@ -130,6 +131,17 @@ def game_screen(window):
             if lscore > 500:
                 lives += 1
                 lscore = 0
+                extralifei = 1
+
+            if extralifei > 0:
+                extralifei += 1
+                extralife_title = assets['FONT3'].render('vida extra!', True, (255,50,50))
+                title_rect = extralife_title.get_rect()
+                title_rect.center = (SCR_WIDTH/2, 60)
+                window.blit(extralife_title,title_rect)
+                if extralifei > 120:
+                    extralifei = 0
+
 
             heartframe += 1
             hanimframe = heartframe//10
