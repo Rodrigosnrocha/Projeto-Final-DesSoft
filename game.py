@@ -20,7 +20,7 @@ def game_screen(window):
 
     player = Player(sprite_groups, assets)
     sprites.add(player)
-    player_speed = 9
+    player_speed = 8
     firing = False
 
     enemy_count = 0
@@ -42,6 +42,7 @@ def game_screen(window):
     extralifei = 0
     difficulty = 6
     dif_purchases = 0
+    shoot_purchases = 0
 
     window.fill((65, 65, 65))
     sprites.draw(window)
@@ -169,6 +170,9 @@ def game_screen(window):
             if lives <= 0:
                 state = "DEAD"
                 lives = 0
+                enemy_count = 0
+                for i in enemies:
+                    i.destroy()
 
             sprites.draw(window)
             pygame.display.update()
@@ -219,6 +223,15 @@ def game_screen(window):
             text_rect.topleft = (40, 330)
             window.blit(text_surface, text_rect)
 
+            text_surface = assets['FONT2'].render('3 - TREINAMENTO DE UZI [6 moedas]', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 380)
+            window.blit(text_surface, text_rect)
+            text_surface = assets[FONT].render('levemente diminui o tempo para atirar (max sete compras)', True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (40, 410)
+            window.blit(text_surface, text_rect)
+
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -232,6 +245,8 @@ def game_screen(window):
                         lives += 3
                         player.speedx = 0
                         player.speedy = 0
+                        score = 0
+                        lscore = 0
                     if event.key == pygame.K_1:
                         if coins >= 10:
                             lives += 1
@@ -241,4 +256,9 @@ def game_screen(window):
                              difficulty -= 2
                              dif_purchases += 1
                              coins -= 25
+                    if event.key == pygame.K_3:
+                         if coins >= 6 and shoot_purchases < 7:
+                             player.shoot_ticks -=100
+                             shoot_purchases += 1
+                             coins -= 6
 
