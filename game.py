@@ -152,6 +152,7 @@ def game_screen(window):
 
             if lives <= 0:
                 state = "DEAD"
+                lives = 0
 
             sprites.draw(window)
             pygame.display.update()
@@ -159,10 +160,30 @@ def game_screen(window):
         while state == "DEAD":
             game_clock.tick(FPS)
             window.fill((33, 83, 144))
-            text_surface = assets[FONT].render('Aperte R para jogar', True, (255,255,255))
+
+            coinframe += 1
+            canimframe = coinframe//10
+            ccoin = assets['coin_anim'][canimframe]
+            ccoin_rect = ccoin.get_rect()
+            ccoin_rect.midleft = (30, 190)
+            window.blit(assets['coin_anim'][canimframe], ccoin_rect)
+            if coinframe >= 58:
+                coinframe = 0
+            coin_title = assets['FONT2'].render('X {}'.format(str(coins)), True, (255,255,255))
+            title_rect = coin_title.get_rect()
+            title_rect.midleft = (70, 195)
+            window.blit(coin_title,title_rect)
+
+            text_surface = assets['FONT3'].render('Aperte R para jogar', True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.bottomright = (SCR_WIDTH-25, SCR_HEIGHT-15)
             window.blit(text_surface, text_rect)
+
+            text_surface = assets['FONT2'].render('1 - Comprar vidas [10 moedas] (vidas: {})'.format(lives+3), True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.topleft = (30, 220)
+            window.blit(text_surface, text_rect)
+
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -173,4 +194,11 @@ def game_screen(window):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         state = "GAME"
-                        lives = 3
+                        lives += 3
+                        player.speedx = 0
+                        player.speedy = 0
+                    if event.key == pygame.K_1:
+                        if coins >= 10:
+                            lives += 1
+                            coins -= 10
+
