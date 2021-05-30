@@ -44,6 +44,7 @@ def game_screen(window):
     difficulty = 6
     dif_purchases = 0
     shoot_purchases = 0
+    highscore = 0
 
     window.fill((65, 65, 65))
     sprites.draw(window)
@@ -179,17 +180,19 @@ def game_screen(window):
                 enemy_count = 0
                 for i in enemies:
                     i.destroy()
+                if score > highscore:
+                    highscore = score
 
             sprites.draw(window)
             pygame.display.update()
         
         while state == "DEAD":
             game_clock.tick(FPS)
-            window.fill((33, 83, 144))
-            firing = False
+            window.fill((5, 74, 117))
+
             text_surface = assets['FONT4'].render('Loja', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (30, 20)
+            text_rect.topleft = (30, 30)
             window.blit(text_surface, text_rect)
 
 
@@ -197,14 +200,24 @@ def game_screen(window):
             canimframe = coinframe//10
             ccoin = assets['coin_anim'][canimframe]
             ccoin_rect = ccoin.get_rect()
-            ccoin_rect.midleft = (30, 115)
+            ccoin_rect.midleft = (30, 135)
             window.blit(assets['coin_anim'][canimframe], ccoin_rect)
             if coinframe >= 58:
                 coinframe = 0
             coin_title = assets['FONT2'].render('X {}'.format(str(coins)), True, (255,255,255))
             title_rect = coin_title.get_rect()
-            title_rect.midleft = (70, 120)
+            title_rect.midleft = (70, 140)
             window.blit(coin_title,title_rect)
+
+            text_surface = assets['FONT2'].render('score: {:.0f}'.format(score), True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.midleft = (900, 190)
+            window.blit(text_surface, text_rect)
+
+            text_surface = assets['FONT2'].render('high score: {:.0f}'.format(highscore), True, (255,255,255))
+            text_rect = text_surface.get_rect()
+            text_rect.midleft = (900, 220)
+            window.blit(text_surface, text_rect)
 
             text_surface = assets['FONT3'].render('Aperte R para jogar', True, (255,255,255))
             text_rect = text_surface.get_rect()

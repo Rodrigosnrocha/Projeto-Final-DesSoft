@@ -7,7 +7,7 @@ from game import game_screen
 
 pygame.init()
 pygame.mixer.init()
-
+  
 window = create_window(SCR_WIDTH,SCR_HEIGHT)
 assets = load_assets()
 

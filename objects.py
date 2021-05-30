@@ -101,3 +101,12 @@ class Bullet(pygame.sprite.Sprite):
         
     def update(self):
         self.rect.x += self.speedx
+
+class Laser(pygame.sprite.Sprite):
+    def __init__(self, assets, left, centery):
+        pygame.sprite.Sprite.__init__(self)
+        self.img = assets["laserimg"]
+        self.mask = pygame.mask.from_surface(self.img)
+        self.rect = self.img.get_rect()
+        self.rect.left = left
+        self.rect.centery = centery
