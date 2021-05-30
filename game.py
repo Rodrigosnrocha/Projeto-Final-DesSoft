@@ -186,7 +186,7 @@ def game_screen(window):
         while state == "DEAD":
             game_clock.tick(FPS)
             window.fill((33, 83, 144))
-
+            firing = False
             text_surface = assets['FONT4'].render('Loja', True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.topleft = (30, 20)
