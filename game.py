@@ -104,14 +104,16 @@ def game_screen(window):
             enemy_timer = base_timer - score * difficulty
             if enemy_timer < 100:
                 enemy_timer = 100
-
-            if (now - last_spawn) > enemy_timer:
-                for i in range(3):
-                    e = Enemy(assets,ENEMY_CONFIG)
-                    enemies.add(e)
-                    sprites.add(e)
-                    enemy_count += 1
-                last_spawn = now
+                
+            if enemy_count <= 200:
+                if (now - last_spawn) > enemy_timer:
+                    for i in range(3):
+                        e = Enemy(assets,ENEMY_CONFIG)
+                        enemies.add(e)
+                        sprites.add(e)
+                        enemy_count += 1
+                    last_spawn = now
+            
 
             sprites.update()
             window.fill((65, 65, 65))
