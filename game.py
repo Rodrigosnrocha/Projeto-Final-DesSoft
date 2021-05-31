@@ -2,6 +2,7 @@ from pygame.constants import KEYUP
 from assets import BG_TEST, FONT, load_assets
 import pygame
 import random
+import time
 from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
 from objects import Enemy, Player, Cloud
 
@@ -195,6 +196,12 @@ def game_screen(window,save_data):
                     i.destroy()
                 if score > highscore:
                     highscore = score
+                text_surface = assets['FONT4'].render('Perdeu', True, (255, 30, 30))
+                text_rect = text_surface.get_rect()
+                text_rect.center = (SCR_WIDTH/2, SCR_HEIGHT/2)
+                window.blit(text_surface, text_rect)
+                pygame.display.update()
+                time.sleep(3)
 
             sprites.draw(window)
             pygame.display.update()
@@ -287,7 +294,7 @@ def game_screen(window,save_data):
                             lives += 1
                             coins -= 10
                     if event.key == pygame.K_2:
-                         if coins >= 25 and dif_purchases < 4:
+                         if coins >= 15 and dif_purchases < 4:
                              difficulty -= 1
                              dif_purchases += 1
                              coins -= 15
