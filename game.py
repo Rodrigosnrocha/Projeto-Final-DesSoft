@@ -19,7 +19,7 @@ def game_screen(window,save_data):
     enemies = pygame.sprite.Group()
     sprite_groups['enemies'] = enemies
 
-    player = Player(sprite_groups, assets)
+    player = Player(sprite_groups, assets, save_data)
     sprites.add(player)
     player_speed = 8
     firing = False
@@ -36,8 +36,8 @@ def game_screen(window,save_data):
 
     score = 0
     lscore = 0
-    coins = 0
     coinframe = 0
+    coins = save_data['coins']
     heartframe = 0
     lives = 3
     keys_pressed = {}
@@ -45,7 +45,6 @@ def game_screen(window,save_data):
     difficulty = 6
     dif_purchases = 0
     shoot_purchases = 0
-    highscore = 0
     cloudtimer = 0
     cloudtimetocreate = 200
 
@@ -194,8 +193,8 @@ def game_screen(window,save_data):
                 enemy_count = 0
                 for i in enemies:
                     i.destroy()
-                if score > highscore:
-                    highscore = score
+                if score > save_data['high_score']:
+                    save_data['high_score'] = score
                 text_surface = assets['FONT4'].render('Perdeu', True, (255, 30, 30))
                 text_rect = text_surface.get_rect()
                 text_rect.center = (SCR_WIDTH/2, SCR_HEIGHT/2)
@@ -234,7 +233,7 @@ def game_screen(window,save_data):
             text_rect.midleft = (900, 190)
             window.blit(text_surface, text_rect)
 
-            text_surface = assets['FONT2'].render('high score: {:.0f}'.format(highscore), True, (255,255,255))
+            text_surface = assets['FONT2'].render('high score: {:.0f}'.format(save_data['high_score']), True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.midleft = (900, 220)
             window.blit(text_surface, text_rect)
@@ -294,13 +293,13 @@ def game_screen(window,save_data):
                             lives += 1
                             coins -= 10
                     if event.key == pygame.K_2:
-                         if coins >= 15 and dif_purchases < 4:
-                             difficulty -= 1
-                             dif_purchases += 1
+                         if coins >= 15 and save_data['difficulty'] < 2:
+                             save_data['difficulty'] -= 1
                              coins -= 15
                     if event.key == pygame.K_3:
-                         if coins >= 6 and shoot_purchases < 7:
-                             player.shoot_ticks -=100
-                             shoot_purchases += 1
-                             coins -= 6
+                         if coins >= 6 and save_data['shoot_speed'] < 7:
+                            player.shoot_ticks -=100
+                            save_data['shoot_speed'] += 1
+                            coins -= 6
+    save_data['coins'] = coins
     return save_data
