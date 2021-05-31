@@ -105,7 +105,7 @@ def game_screen(window):
             if enemy_timer < 100:
                 enemy_timer = 100
                 
-            if enemy_count <= 200:
+            if enemy_count <= 60:
                 if (now - last_spawn) > enemy_timer:
                     for i in range(3):
                         e = Enemy(assets,ENEMY_CONFIG)
@@ -175,6 +175,7 @@ def game_screen(window):
 
             if lives <= 0:
                 keys_pressed = {}
+                firing = False
                 state = "DEAD"
                 player.speedx = 0
                 player.speedy = 0
@@ -263,6 +264,7 @@ def game_screen(window):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         state = "GAME"
+                        keys_pressed = {}
                         player.rect.left = 90
                         player.rect.centery = SCR_HEIGHT/2
                         player.speedx = 0
