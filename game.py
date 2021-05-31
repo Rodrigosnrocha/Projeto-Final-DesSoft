@@ -53,6 +53,8 @@ def game_screen(window):
     sprites.draw(window)
     pygame.display.update()
 
+    pygame.mixer.music.play(loops=-1)
+
     state = 'GAME'
     Running = True
     while Running:
