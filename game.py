@@ -3,7 +3,8 @@ from assets import BG_TEST, FONT, load_assets
 import pygame
 import random
 import time
-from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
+from os import path
+from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG, SND
 from objects import Enemy, Player, Cloud
 
 
@@ -18,6 +19,8 @@ def game_screen(window,save_data):
     sprite_groups['player_bullets'] = player_bullets
     enemies = pygame.sprite.Group()
     sprite_groups['enemies'] = enemies
+    clouds = pygame.sprite.Group()
+    sprite_groups['clouds'] = clouds
 
     player = Player(sprite_groups, assets)
     sprites.add(player)
@@ -98,7 +101,7 @@ def game_screen(window,save_data):
                 speed = random.randint(4,5)
                 centery = random.randint(30, SCR_HEIGHT-30)
                 new_cloud = Cloud(assets, centery, speed)
-                sprites.add(new_cloud)
+                clouds.add(new_cloud)
                 cloudtimer = 0
                 cloudtimetocreate = random.randint(50, 300)
 
@@ -128,6 +131,7 @@ def game_screen(window,save_data):
                         enemy_count += 1
                     last_spawn = now
 
+            clouds.update()
             sprites.update()
             window.fill((125, 190, 198))
 
@@ -198,13 +202,18 @@ def game_screen(window,save_data):
                     i.destroy()
                 if score > highscore:
                     highscore = score
+                pygame.mixer.music.fadeout(2900)
                 text_surface = assets['FONT4'].render('Perdeu', True, (255, 30, 30))
                 text_rect = text_surface.get_rect()
                 text_rect.center = (SCR_WIDTH/2, SCR_HEIGHT/2)
                 window.blit(text_surface, text_rect)
                 pygame.display.update()
                 time.sleep(3)
+                pygame.mixer.music.load(path.join(SND, 'Menumusic.mp3'))
+                pygame.mixer.music.set_volume(0.03)
+                pygame.mixer.music.play(loops=-1)
 
+            clouds.draw(window)
             sprites.draw(window)
             pygame.display.update()
         
@@ -283,6 +292,9 @@ def game_screen(window,save_data):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         state = "GAME"
+                        pygame.mixer.music.load(path.join(SND, 'Gamemusic.mp3'))
+                        pygame.mixer.music.set_volume(0.03)
+                        pygame.mixer.music.play(loops=-1)
                         keys_pressed = {}
                         player.rect.left = 90
                         player.rect.centery = SCR_HEIGHT/2
