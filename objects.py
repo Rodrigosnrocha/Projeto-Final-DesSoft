@@ -102,6 +102,19 @@ class Bullet(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedx
 
+class Cloud(pygame.sprite.Sprite):
+    def __init__(self, assets, centery, speed):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets['nuvem']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.speedx = -speed
+        self.rect.left = SCR_WIDTH
+        self.rect.centery = centery
+        
+    def update(self):
+        self.rect.x += self.speedx
+
 class Laser(pygame.sprite.Sprite):
     def __init__(self, assets, left, centery):
         pygame.sprite.Sprite.__init__(self)

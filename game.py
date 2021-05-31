@@ -3,7 +3,7 @@ from assets import BG_TEST, FONT, load_assets
 import pygame
 import random
 from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
-from objects import Enemy, Player
+from objects import Enemy, Player, Cloud
 
 
 def game_screen(window):
@@ -45,8 +45,10 @@ def game_screen(window):
     dif_purchases = 0
     shoot_purchases = 0
     highscore = 0
+    cloudtimer = 0
+    cloudtimetocreate = 200
 
-    window.fill((65, 65, 65))
+    window.fill((125, 190, 198))
     sprites.draw(window)
     pygame.display.update()
 
@@ -88,6 +90,15 @@ def game_screen(window):
             if firing == True:
                 player.shoot()
 
+            cloudtimer += 1
+            if cloudtimer >= cloudtimetocreate:
+                speed = random.randint(4,5)
+                centery = random.randint(30, SCR_HEIGHT-30)
+                new_cloud = Cloud(assets, centery, speed)
+                sprites.add(new_cloud)
+                cloudtimer = 0
+                cloudtimetocreate = random.randint(50, 300)
+
             bullet_hits = pygame.sprite.groupcollide(enemies, player_bullets, False, True, pygame.sprite.collide_mask)
             for i in bullet_hits:
                 i.destroy()
@@ -113,10 +124,9 @@ def game_screen(window):
                         sprites.add(e)
                         enemy_count += 1
                     last_spawn = now
-            
 
             sprites.update()
-            window.fill((65, 65, 65))
+            window.fill((125, 190, 198))
 
             score += 0.2
             lscore += 0.2
