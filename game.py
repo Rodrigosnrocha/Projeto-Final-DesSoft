@@ -199,8 +199,6 @@ def game_screen(window,save_data):
                 enemy_count = 0
                 for i in enemies:
                     i.destroy()
-                if score > highscore:
-                    highscore = score
                 pygame.mixer.music.fadeout(2900)
                 if score > save_data['high_score']:
                     save_data['high_score'] = score
@@ -288,7 +286,6 @@ def game_screen(window,save_data):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     state = 'QUIT'
-                    pygame.quit()
                     Running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
