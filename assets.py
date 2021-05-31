@@ -50,7 +50,7 @@ def load_assets():
         heart_anim.append(img)
     assets["heart_anim"] = heart_anim
 
-    pygame.mixer.music.load(os.path.join(SND, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+    pygame.mixer.music.load(os.path.join(SND, 'Gamemusic.mp3'))
     pygame.mixer.music.set_volume(0.4)
 
     return assets
