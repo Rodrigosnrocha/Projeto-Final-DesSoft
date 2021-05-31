@@ -6,7 +6,7 @@ from file_config import FPS, SCR_WIDTH, SCR_HEIGHT, QUIT, ENEMY_CONFIG
 from objects import Enemy, Player, Cloud
 
 
-def game_screen(window):
+def game_screen(window,save_data):
     game_clock = pygame.time.Clock()
     assets = load_assets()
 
@@ -296,4 +296,4 @@ def game_screen(window):
                              player.shoot_ticks -=100
                              shoot_purchases += 1
                              coins -= 6
-
+    return save_data

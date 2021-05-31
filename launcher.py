@@ -1,9 +1,24 @@
 # Controla o jogo no geral por meio de um state machine. Melhor evitar botar muito código aqui
 
 import pygame
+import json
 from file_config import SCR_HEIGHT, SCR_WIDTH, FPS, QUIT, INGAME, TITLE, GAME_OVER, create_window
 from assets import load_assets, IMG_TEST
 from game import game_screen
+
+try:
+    with open('save.json','r') as save_json:
+        x = save_json.read()
+        save_data = json.loads(x)
+
+except:
+    with open('save.json','w') as save_json:
+        save_data = {
+            "high_score" : 0,
+            "coins" : 0
+        }
+        dic_json = json.dumps(save_data)
+        save_json.write(dic_json)
 
 pygame.init()
 pygame.mixer.init()
@@ -22,7 +37,10 @@ while global_state != QUIT:
         elif event.type == pygame.KEYDOWN:
             global_state = INGAME
     if global_state == INGAME:
-        game_screen(window)
+        new_save = game_screen(window,save_data)
         global_state = QUIT
 
+with open('save.json','w') as save_json:
+    new_save = json.dumps(new_save)
+    save_json.write(new_save)
 pygame.quit()
