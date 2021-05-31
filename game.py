@@ -235,11 +235,11 @@ def game_screen(window):
             text_rect.topleft = (40, 250)
             window.blit(text_surface, text_rect)
 
-            text_surface = assets['FONT2'].render('2 - FREIO ABS [25 moedas]', True, (255,255,255))
+            text_surface = assets['FONT2'].render('2 - FREIO ABS [15 moedas]', True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.topleft = (30, 300)
             window.blit(text_surface, text_rect)
-            text_surface = assets[FONT].render('diminui a aceleracao dos inimigos (max duas compras)', True, (255,255,255))
+            text_surface = assets[FONT].render('diminui a aceleracao dos inimigos (max quatro compras)', True, (255,255,255))
             text_rect = text_surface.get_rect()
             text_rect.topleft = (40, 330)
             window.blit(text_surface, text_rect)
@@ -275,10 +275,10 @@ def game_screen(window):
                             lives += 1
                             coins -= 10
                     if event.key == pygame.K_2:
-                         if coins >= 25 and dif_purchases < 2:
-                             difficulty -= 2
+                         if coins >= 25 and dif_purchases < 4:
+                             difficulty -= 1
                              dif_purchases += 1
-                             coins -= 25
+                             coins -= 15
                     if event.key == pygame.K_3:
                          if coins >= 6 and shoot_purchases < 7:
                              player.shoot_ticks -=100
