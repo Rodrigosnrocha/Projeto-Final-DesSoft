@@ -294,7 +294,7 @@ def game_screen(window):
                             lives += 1
                             coins -= 10
                     if event.key == pygame.K_2:
-                         if coins >= 25 and dif_purchases < 4:
+                         if coins >= 15 and dif_purchases < 4:
                              difficulty -= 1
                              dif_purchases += 1
                              coins -= 15
