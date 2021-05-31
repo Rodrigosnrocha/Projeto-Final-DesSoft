@@ -15,7 +15,9 @@ except:
     with open('save.json','w') as save_json:
         save_data = {
             "high_score" : 0,
-            "coins" : 0
+            "coins" : 0,
+            "shoot_speed" : 0,
+            "difficulty" : 6
         }
         dic_json = json.dumps(save_data)
         save_json.write(dic_json)

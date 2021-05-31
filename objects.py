@@ -8,7 +8,7 @@ from file_config import SCR_HEIGHT, SCR_WIDTH, ENEMY_CONFIG
 from assets import IMG_BULLET_TEST, IMG_ENEMY_TEST, IMG_PLAYER_TEST, BG_TEST
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, groups, assets):
+    def __init__(self, groups, assets,save_data):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets[IMG_PLAYER_TEST]
@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.blink = False # Esse boolean determina se o avião deve piscar
 
         # Só será possível atirar depois do cooldown
-        self.shoot_ticks = 1000
+        self.shoot_ticks = 1000 - (100 * save_data['shoot_speed'])
         self.last_shot = pygame.time.get_ticks() - self.shoot_ticks
 
     def update(self):
