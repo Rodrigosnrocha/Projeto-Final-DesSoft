@@ -306,7 +306,7 @@ def game_screen(window,save_data):
                             lives += 1
                             coins -= 10
                     if event.key == pygame.K_2:
-                         if coins >= 15 and save_data['difficulty'] < 2:
+                         if coins >= 15 and save_data['difficulty'] > 2:
                              save_data['difficulty'] -= 1
                              coins -= 15
                     if event.key == pygame.K_3:
