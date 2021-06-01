@@ -218,25 +218,20 @@ def game_screen(window,save_data):
         
         while state == "DEAD":
             game_clock.tick(FPS)
-            window.fill((5, 74, 117))
-
-            text_surface = assets['FONT4'].render('Loja', True, (255,255,255))
-            text_rect = text_surface.get_rect()
-            text_rect.topleft = (30, 30)
-            window.blit(text_surface, text_rect)
-
+            #window.fill((5, 74, 117))
+            window.blit(assets['BGLoja'],(0,0))
 
             coinframe += 1
             canimframe = coinframe//10
             ccoin = assets['coin_anim'][canimframe]
             ccoin_rect = ccoin.get_rect()
-            ccoin_rect.midleft = (30, 135)
+            ccoin_rect.midleft = (50, 275)
             window.blit(assets['coin_anim'][canimframe], ccoin_rect)
             if coinframe >= 58:
                 coinframe = 0
             coin_title = assets['FONT2'].render('X {}'.format(str(coins)), True, (255,255,255))
             title_rect = coin_title.get_rect()
-            title_rect.midleft = (70, 140)
+            title_rect.midleft = (100, 280)
             window.blit(coin_title,title_rect)
 
             text_surface = assets['FONT2'].render('score: {:.0f}'.format(score), True, (255,255,255))
@@ -256,29 +251,29 @@ def game_screen(window,save_data):
 
             text_surface = assets['FONT2'].render('1 - VIDA EXTRA [10 moedas]', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (30, 220)
+            text_rect.topleft = (60, 340)
             window.blit(text_surface, text_rect)
             text_surface = assets[FONT].render('adiciona uma vida (vidas: {})'.format(lives+3), True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (40, 250)
+            text_rect.topleft = (70, 370)
             window.blit(text_surface, text_rect)
 
             text_surface = assets['FONT2'].render('2 - FREIO ABS [15 moedas]', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (30, 300)
+            text_rect.topleft = (60, 420)
             window.blit(text_surface, text_rect)
             text_surface = assets[FONT].render('diminui a aceleracao dos inimigos (max quatro compras)', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (40, 330)
+            text_rect.topleft = (70, 450)
             window.blit(text_surface, text_rect)
 
             text_surface = assets['FONT2'].render('3 - TREINAMENTO DE UZI [6 moedas]', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (30, 380)
+            text_rect.topleft = (60, 500)
             window.blit(text_surface, text_rect)
             text_surface = assets[FONT].render('levemente diminui o tempo para atirar (max sete compras)', True, (255,255,255))
             text_rect = text_surface.get_rect()
-            text_rect.topleft = (40, 410)
+            text_rect.topleft = (70, 530)
             window.blit(text_surface, text_rect)
 
             pygame.display.update()

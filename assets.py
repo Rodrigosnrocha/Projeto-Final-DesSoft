@@ -32,6 +32,8 @@ def load_assets():
     assets[IMG_ENEMY_TEST] = pygame.transform.scale(assets[IMG_ENEMY_TEST], (118, 42))
     assets['nuvem'] = pygame.image.load(path.join(IMG,'Nuvem.png')).convert_alpha()
     assets['nuvem'] = pygame.transform.scale(assets['nuvem'], (300, 165))
+    assets['BGLoja'] = pygame.image.load(path.join(IMG,'Backgroundloja.png')).convert()
+    assets['BGLoja'] = pygame.transform.scale(assets['BGLoja'], (1280, 720))
     assets[FONT] = pygame.font.Font(None,28)
     assets['FONT2'] = pygame.font.Font(None,36)
     assets['FONT3'] = pygame.font.Font(None,48)
