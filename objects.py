@@ -101,6 +101,8 @@ class Bullet(pygame.sprite.Sprite):
         
     def update(self):
         self.rect.x += self.speedx
+        if self.rect.y > SCR_WIDTH:
+            self.kill()
 
 class Cloud(pygame.sprite.Sprite):
     def __init__(self, assets, centery, speed):
