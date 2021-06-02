@@ -46,8 +46,6 @@ def game_screen(window,save_data):
     keys_pressed = {}
     extralifei = 0
     difficulty = 6
-    dif_purchases = 0
-    shoot_purchases = 0
     cloudtimer = 0
     cloudtimetocreate = 200
 
@@ -121,7 +119,7 @@ def game_screen(window,save_data):
             if enemy_timer < 100:
                 enemy_timer = 100
                 
-            if enemy_count <= 60:
+            if enemy_count <= 40:
                 if (now - last_spawn) > enemy_timer:
                     for i in range(3):
                         e = Enemy(assets,ENEMY_CONFIG)
