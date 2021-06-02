@@ -107,13 +107,16 @@ def game_screen(window,save_data):
                 i.destroy()
                 enemy_count -= 1
                 coins += 1
-            
-            hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
-            if len(hits) > 0:
-                lives -= 1
+
             
             if player.blink == False:
                 player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
+                if len(player_hits) > 0:
+                    lives -= 1
+                    player.blink_timer = 0
+            elif player.blink == True:
+                player.blink_timer += 1
+              
 
             enemy_timer = base_timer - score * difficulty
             if enemy_timer < 100:

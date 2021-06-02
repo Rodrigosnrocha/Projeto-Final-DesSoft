@@ -30,6 +30,7 @@ def load_assets():
     assets[IMG_BULLET_TEST] = pygame.transform.scale(assets[IMG_BULLET_TEST], (40, 12))
     assets[IMG_ENEMY_TEST] = pygame.image.load(path.join(IMG,'aviao3.png')).convert_alpha()
     assets[IMG_ENEMY_TEST] = pygame.transform.scale(assets[IMG_ENEMY_TEST], (118, 42))
+    assets['blink'] = pygame.image.load(path.join(IMG,'img_blink.png')).convert_alpha()
     assets['nuvem'] = pygame.image.load(path.join(IMG,'Nuvem.png')).convert_alpha()
     assets['nuvem'] = pygame.transform.scale(assets['nuvem'], (300, 165))
     assets['BGLoja'] = pygame.image.load(path.join(IMG,'Backgroundloja.png')).convert()

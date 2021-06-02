@@ -40,9 +40,8 @@ while global_state != QUIT:
             global_state = INGAME
     if global_state == INGAME:
         new_save = game_screen(window,save_data)
+        with open('save.json','w') as save_json:    
+            new_save = json.dumps(new_save)
+            save_json.write(new_save)
         global_state = QUIT
-
-with open('save.json','w') as save_json:
-    new_save = json.dumps(new_save)
-    save_json.write(new_save)
 pygame.quit()

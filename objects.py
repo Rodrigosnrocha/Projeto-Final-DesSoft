@@ -22,6 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.assets = assets
         self.anim_state = 0 # Vamos usar 0 para representar o estado 'idle'
         self.blink = False # Esse boolean determina se o avião deve piscar
+        self.blink_timer = 0 # Essa variavel conta quanto tempo se passou no estado de piscar
 
         # Só será possível atirar depois do cooldown
         self.shoot_ticks = 1000 - (100 * save_data['shoot_speed'])
@@ -41,6 +42,16 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 10
         if self.rect.right > SCR_WIDTH-10:
             self.rect.right = SCR_WIDTH-10
+        
+        # Pisca se tiver colidido com um inimigo nos ultimos 500 ticks
+        if self.blink == True:
+            if self.blink_timer >= 500:
+                self.image = self.assets[IMG_PLAYER_TEST]
+                self.blink = False
+            elif self.blink_timer%5 == 0:
+                self.image = self.assets['blink']
+            else:
+                self.image = self.assets[IMG_PLAYER_TEST]
     def shoot(self):
         # Verifica se pode atirar
         now = pygame.time.get_ticks()
