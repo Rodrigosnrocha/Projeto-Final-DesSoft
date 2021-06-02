@@ -54,6 +54,7 @@ def game_screen(window,save_data):
     pygame.display.update()
 
     pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(0.25)
 
     state = 'GAME'
     Running = True
@@ -64,7 +65,6 @@ def game_screen(window,save_data):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     state = 'QUIT'
-                    pygame.quit()
                     Running = False
                 if event.type == pygame.KEYDOWN:
                     keys_pressed[event.key] = True
@@ -113,6 +113,7 @@ def game_screen(window,save_data):
                 player_hits = pygame.sprite.spritecollide(player, enemies, True, pygame.sprite.collide_mask)
                 if len(player_hits) > 0:
                     lives -= 1
+                    player.blink = True
                     player.blink_timer = 0
             elif player.blink == True:
                 player.blink_timer += 1
@@ -210,7 +211,7 @@ def game_screen(window,save_data):
                 pygame.display.update()
                 time.sleep(3)
                 pygame.mixer.music.load(path.join(SND, 'Menumusic.mp3'))
-                pygame.mixer.music.set_volume(0.03)
+                pygame.mixer.music.set_volume(0.25)
                 pygame.mixer.music.play(loops=-1)
 
             clouds.draw(window)

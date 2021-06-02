@@ -45,13 +45,14 @@ class Player(pygame.sprite.Sprite):
         
         # Pisca se tiver colidido com um inimigo nos ultimos 500 ticks
         if self.blink == True:
-            if self.blink_timer >= 500:
+            if self.blink_timer >= 100:
                 self.image = self.assets[IMG_PLAYER_TEST]
                 self.blink = False
-            elif self.blink_timer%5 == 0:
-                self.image = self.assets['blink']
-            else:
-                self.image = self.assets[IMG_PLAYER_TEST]
+            elif self.blink_timer%7 == 0:
+                if self.image == self.assets[IMG_PLAYER_TEST]:
+                    self.image = self.assets['blink']
+                else:
+                    self.image = self.assets[IMG_PLAYER_TEST]
     def shoot(self):
         # Verifica se pode atirar
         now = pygame.time.get_ticks()
