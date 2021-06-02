@@ -49,7 +49,7 @@ def game_screen(window,save_data):
     cloudtimer = 0
     cloudtimetocreate = 200
 
-    window.fill((125, 190, 198))
+    window.fill((125, 190, 215))
     sprites.draw(window)
     pygame.display.update()
 
@@ -134,7 +134,7 @@ def game_screen(window,save_data):
 
             clouds.update()
             sprites.update()
-            window.fill((125, 190, 198))
+            window.fill((125, 190, 215))
 
             score += 0.2
             lscore += 0.2
@@ -220,7 +220,6 @@ def game_screen(window,save_data):
         
         while state == "DEAD":
             game_clock.tick(FPS)
-            #window.fill((5, 74, 117))
             window.blit(assets['BGLoja'],(0,0))
 
             coinframe += 1

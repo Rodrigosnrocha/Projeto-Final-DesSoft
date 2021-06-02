@@ -1,10 +1,12 @@
 # Controla o jogo no geral por meio de um state machine. Melhor evitar botar muito código aqui
 
 import pygame
+import random
 import json
 from file_config import SCR_HEIGHT, SCR_WIDTH, FPS, QUIT, INGAME, TITLE, GAME_OVER, create_window
 from assets import load_assets, IMG_TEST
 from game import game_screen
+from objects import Cloud
 
 try:
     with open('save.json','r') as save_json:
@@ -28,11 +30,18 @@ pygame.mixer.init()
 window = create_window(SCR_WIDTH,SCR_HEIGHT)
 assets = load_assets()
 
-window.blit(assets[IMG_TEST],(0,0))
+window.fill((125, 190, 215))
 pygame.display.update()
 
+cloudtimer = 0
+cloudtimetocreate = 1
+clouds = pygame.sprite.Group()
+game_clock = pygame.time.Clock()
+
 global_state = TITLE
+
 while global_state != QUIT:
+    game_clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             global_state = QUIT
@@ -44,4 +53,21 @@ while global_state != QUIT:
             new_save = json.dumps(new_save)
             save_json.write(new_save)
         global_state = QUIT
+    
+    cloudtimer += 1
+    if cloudtimer >= cloudtimetocreate:
+        speed = random.randint(4,5)
+        centery = random.randint(30, SCR_HEIGHT-30)
+        new_cloud = Cloud(assets, centery, speed)
+        clouds.add(new_cloud)
+        cloudtimer = 0
+        cloudtimetocreate = random.randint(50, 300)
+    
+    clouds.update()
+    window.fill((125, 190, 215))
+    clouds.draw(window)
+    window.blit(assets['BGTitle'], (0,0))
+    pygame.display.update()
+        
+    
 pygame.quit()
