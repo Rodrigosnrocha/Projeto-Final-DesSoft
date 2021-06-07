@@ -199,6 +199,7 @@ def game_screen(window,save_data):
                 player.speedy = 0
                 lives = 0
                 enemy_count = 0
+                player.blink = False
                 for i in enemies:
                     i.destroy()
                 pygame.mixer.music.fadeout(2900)
