@@ -287,7 +287,7 @@ def game_screen(window,save_data):
                     if event.key == pygame.K_r:
                         state = "GAME"
                         pygame.mixer.music.load(path.join(SND, 'Gamemusic.mp3'))
-                        pygame.mixer.music.set_volume(0.03)
+                        pygame.mixer.music.set_volume(0.25)
                         pygame.mixer.music.play(loops=-1)
                         keys_pressed = {}
                         player.rect.left = 90
