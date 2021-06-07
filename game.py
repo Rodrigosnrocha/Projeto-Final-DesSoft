@@ -1,5 +1,5 @@
 from pygame.constants import KEYUP
-from assets import BG_TEST, FONT, load_assets
+from assets import BG_TEST, FONT, IMG_PLAYER_TEST, load_assets
 import pygame
 import random
 import time
@@ -199,7 +199,6 @@ def game_screen(window,save_data):
                 player.speedy = 0
                 lives = 0
                 enemy_count = 0
-                player.blink = False
                 for i in enemies:
                     i.destroy()
                 pygame.mixer.music.fadeout(2900)
