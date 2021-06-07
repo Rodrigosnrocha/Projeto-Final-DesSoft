@@ -8,7 +8,7 @@ def create_window(WIDTH, HEIGHT):
     """
 
     window = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption('TEST') #Caption temporário, mudar quando tivermos um título final
+    pygame.display.set_caption('Literalmente um joguinho de avião') #Caption temporário, mudar quando tivermos um título final
     return window
 
 # Determina os diretórios de assets. Melhor não mexer muito se não precisar
