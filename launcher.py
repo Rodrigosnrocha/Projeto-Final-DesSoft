@@ -1,4 +1,4 @@
-# Controla o jogo no geral por meio de um state machine. Melhor evitar botar muito código aqui
+# Controla o jogo no geral por meio de um state machine
 
 
 # importando coisas
