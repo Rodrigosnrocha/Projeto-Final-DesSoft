@@ -1,5 +1,7 @@
 # Controla o jogo no geral por meio de um state machine. Melhor evitar botar muito código aqui
 
+
+# importando coisas
 import pygame
 import random
 import json
@@ -8,6 +10,7 @@ from assets import load_assets, IMG_TEST
 from game import game_screen
 from objects import Cloud
 
+# tenta ler o arquivo de save, se nao houver, cria um
 try:
     with open('save.json','r') as save_json:
         x = save_json.read()
@@ -24,24 +27,33 @@ except:
         dic_json = json.dumps(save_data)
         save_json.write(dic_json)
 
+#inicializacao
 pygame.init()
 pygame.mixer.init()
   
+#cria janela, carrega assets
 window = create_window(SCR_WIDTH,SCR_HEIGHT)
 assets = load_assets()
 
 window.fill((125, 190, 215))
 pygame.display.update()
 
+#inicia timers das nuvens e grupo
 cloudtimer = 0
 cloudtimetocreate = 1
 clouds = pygame.sprite.Group()
+
+#arruma ticks
 game_clock = pygame.time.Clock()
 
 global_state = TITLE
 
+#enquanto o estado nao e quit
 while global_state != QUIT:
+    #game tick
     game_clock.tick(FPS)
+
+    # checa se quer fechar o jogo
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             global_state = QUIT
@@ -54,6 +66,7 @@ while global_state != QUIT:
             save_json.write(new_save)
         global_state = QUIT
     
+    # sistema de update, criacao e deleta nuvens (tela de inicio)
     cloudtimer += 1
     if cloudtimer >= cloudtimetocreate:
         speed = random.randint(4,5)
@@ -63,6 +76,7 @@ while global_state != QUIT:
         cloudtimer = 0
         cloudtimetocreate = random.randint(50, 300)
     
+    # updates na tela
     clouds.update()
     window.fill((125, 190, 215))
     clouds.draw(window)
