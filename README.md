@@ -22,6 +22,9 @@
 
 ## Changelog:
 
+### 1.0.0
+#### Versão release, todos os sitemas implementados
+
 ### 0.3.0
 #### Adicionados inimigos, pontuação, loja e o estado de derrota
 
