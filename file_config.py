@@ -3,8 +3,13 @@ from os import path
 
 
 def create_window(WIDTH, HEIGHT):
-    """
-    Cria a janela do jogo, a partir de um valor de largura e altura. Também define o título da janela
+    """Cria a janela do jogo, a partir de um valor de largura e altura. Também define o título da janela
+    Parâmetros
+    ----------
+    WIDTH : int
+        Largura da tela
+    HEIGHT : int
+        Altura da tela
     """
 
     window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -33,4 +38,3 @@ ENEMY_CONFIG['SPEED'] = 5
 QUIT = 0
 INGAME = 1
 TITLE = 2
-GAME_OVER = 3
