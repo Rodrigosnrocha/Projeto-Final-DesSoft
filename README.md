@@ -8,7 +8,7 @@
 #
 
 ### Vídeo de demonstração: 
->[adicionar link]
+>https://youtu.be/j-zWVBrE7AU
 
 #
     Um jogo de tiro side-scroller em que pode adquirir upgrades para melhorar suas abilidades
